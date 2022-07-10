@@ -70,9 +70,7 @@ torrentConfig = loadTorrentConfig()
 
 for seriesConfig in config.series:
   filteredEpisodeTrackers = [episodeTracker for episodeTracker in episodeTrackers if episodeTracker.name == seriesConfig.name]
+  episodeTracker = filteredEpisodeTrackers[0] if len(filteredEpisodeTrackers) != 0 else EpisodeTrackerConfig(name=seriesConfig.name, lastEpisodeScraped=0)
 
-  if (len(filteredEpisodeTrackers) == 0): 
-    raise NotFoundError(f"No Episode Tracker for series \"{seriesConfig.name}\" found")
-
-  loadEpisodes(seriesConfig, filteredEpisodeTrackers[0], torrentConfig)
+  loadEpisodes(seriesConfig, episodeTracker, torrentConfig)
 
